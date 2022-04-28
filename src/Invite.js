@@ -4,6 +4,7 @@ import "./App.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+
 const App = (props) => {
   let { id } = useParams();
   const [invitado, setInvitado] = useState(null);
@@ -21,12 +22,13 @@ const App = (props) => {
         console.log(resp);
         setAsistencia(resp.data.data.rsvp)
         setInvitado(resp.data.data);
+        
         return { status: 200 };
       })
       .catch((error) => {
         return { status: error.response.status };
       });
-    setLoading(false);
+      setLoading(false)
     return res;
   };
 
@@ -57,14 +59,23 @@ const App = (props) => {
       .catch((error) => {
         return { status: error.response.status };
       });
-  
+
     return res;
 
   }
   useEffect(() => {
-    getInvitado();
+    setTimeout(() => {
+      getInvitado();
+    }, 3000);
+  
   }, []);
   return (
+    <>
+    <div className={loading ? "loader-container visible":"loader-container"}>
+      
+    <img src={logo} className="logo" alt="logo" />
+    <div className="overlay"></div>
+    </div>
     <div className="App">
       <div className="invite-container">
         <div className="frame">
@@ -170,6 +181,7 @@ const App = (props) => {
         </div>
       ) : null}
     </div>
+    </>
   );
 };
 
