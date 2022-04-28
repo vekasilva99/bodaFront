@@ -361,6 +361,7 @@ button[disabled]{
 
 .invitado-contenedor{
 position: absolute;
+width:95%;
 }
 
 select{
