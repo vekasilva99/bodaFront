@@ -155,7 +155,7 @@ const App = (props) => {
                   <button className={invitado.respondido && invitado.rsvp==0 ? "button active" :"button"} onClick={()=>{rsvp(false)}} >
                     <h2>No asistiré</h2>
                   </button>
-                  <button className={invitado.respondido && invitado.rsvp>0 ? "button active" :"button"} onClick={()=>{rsvp(true)}} disabled={invitado.invites>0 && asistencia==0}>
+                  <button className={invitado.respondido && invitado.rsvp>0 ? "button active" :"button"} onClick={()=>{rsvp(true)}} disabled={invitado.invites>1 && asistencia==0}>
                     <h2>Asistiré</h2>
                   </button>
                 </div>
