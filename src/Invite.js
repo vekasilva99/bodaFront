@@ -4,10 +4,10 @@ import "./App.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-
 const App = (props) => {
   let { id } = useParams();
   const [invitado, setInvitado] = useState(null);
+  const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [asistencia, setAsistencia] = useState(0);
 
@@ -20,133 +20,154 @@ const App = (props) => {
     let res = await axios(options)
       .then((resp) => {
         console.log(resp);
-        setAsistencia(resp.data.data.rsvp)
+        setAsistencia(resp.data.data.rsvp);
         setInvitado(resp.data.data);
-        
+
         return { status: 200 };
       })
       .catch((error) => {
         return { status: error.response.status };
       });
-      setLoading(false)
+    setLoading(false);
     return res;
   };
 
-  const rsvp = async (valor)=>{
-    let aux
-    if(valor){
-      if(invitado.invites>1){
-        aux=asistencia
+  const rsvp = async (valor) => {
+    let aux;
+    if (valor) {
+      if (invitado.invites > 1) {
+        aux = asistencia;
       }
-   aux=1
-    }else{
-      aux=0
+      aux = 1;
+    } else {
+      aux = 0;
     }
     const options = {
       url: `https://bodabackend.herokuapp.com/invitaciones/rsvp/${id}`,
       method: "POST",
       data: {
-        rsvp:aux
+        rsvp: aux,
       },
     };
     let res = await axios(options)
       .then((resp) => {
-        console.log("esta es la respuesta",resp);
-        setAsistencia(resp.data.data.rsvp)
+        console.log("esta es la respuesta", resp);
+        setAsistencia(resp.data.data.rsvp);
         setInvitado(resp.data.data);
+        setMessage("Su respuesta ha sido enviada")
         return { status: 200 };
       })
       .catch((error) => {
+        setMessage("Algo salió mal. Intente mas tarde.")
         return { status: error.response.status };
       });
 
     return res;
-
-  }
+  };
   useEffect(() => {
     setTimeout(() => {
       getInvitado();
     }, 3000);
-  
   }, []);
+
+  const openInNewTab=(url)=> {
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
   return (
     <>
-    <div className={loading ? "loader-container visible":"loader-container"}>
-      
-    <img src={logo} className="logo" alt="logo" />
-    <div className="overlay"></div>
+    <div className={message !=null ? "message-container visible" : "message-container"}>
+      <div className="message">
+      <img src={logo} className="logo" alt="logo" />
+      <h2>Su respuesta ha sido enviada</h2>
+      <button className="button2" onClick={()=>{setMessage(null)}}>
+                  <h2>Cerrar</h2>
+                </button>
+      </div>
     </div>
-    <div className="App">
-      <div className="invite-container">
-        <div className="frame">
-          <div className="shape-outer bevel">
-            <div class="shape-inner bevel"></div>
+      <div
+        className={loading ? "loader-container visible" : "loader-container"}
+      >
+        <img src={logo} className="logo" alt="logo" />
+        <div className="overlay"></div>
+      </div>
+      <div className="App">
+        <div className="invite-container">
+          <div className="frame">
+            <div className="shape-outer bevel">
+              <div class="shape-inner bevel"></div>
+            </div>
+            <div className="rectangle"></div>
           </div>
-          <div className="rectangle"></div>
-        </div>
-        {/* <div className="title">
+          {/* <div className="title">
        <h2 className="name left">Isabella</h2>
        <img src={logo} className="logo" alt="logo" />
        <h2 className="name right">Vicente Emilio</h2>
      </div> */}
-        <div className="invite">
-          <img src={logo} className="logo-big" alt="logo" />
-          <div className="papas-container">
-            <div className="papas">
-              <h3>Juan Carlos Antillano Monagas</h3>
-              <h3>Ysabel Vetancourt De Antillano</h3>
+          <div className="invite">
+            <img src={logo} className="logo-big" alt="logo" />
+            <div className="papas-container">
+              <div className="papas">
+                <h3>Juan Carlos Antillano Monagas</h3>
+                <h3>Ysabel Vetancourt De Antillano</h3>
+              </div>
+              <div className="papas">
+                <h3>Vicente Rosa Muñoz</h3>
+                <h3>Andreina Uzcátegui De Rosa</h3>
+              </div>
             </div>
-            <div className="papas">
-              <h3>Vicente Rosa Muñoz</h3>
-              <h3>Andreina Uzcátegui De Rosa</h3>
+            <div className="invitar">
+              <h3>Se complacen en invitarles al matrimonio de sus hijos</h3>
             </div>
-          </div>
-          <div className="invitar">
-            <h3>Se complacen en invitarles al matrimonio de sus hijos</h3>
-          </div>
-          <div className="novios">
-            <h1>Isabella y Vicente Emilio</h1>
-          </div>
-          <div className="invitar sin-margen">
-            <h3>
-              Ceremonia que se efectuará el sábado dos de julio de dos mil
-              veintidós
-            </h3>
-            <h3>
-              a las cuatro de la tarde en los jardines de la casa Samambaya,
-              Caracas
-            </h3>
-          </div>
-          <div className="papas-container con-margen">
-            <div className="papas">
-              <h4>Recepción: Casa Samambaya</h4>
-              <h4>Los Guayabitos, Caracas</h4>
+            <div className="novios">
+              <h1>Isabella y Vicente Emilio</h1>
             </div>
-            <div className="papas">
-              <h4>Cinco y treinta de la tarde</h4>
-              <h4>Traje Formal</h4>
+            <div className="invitar sin-margen">
+              <h3>
+                Ceremonia que se efectuará el sábado dos de julio de dos mil
+                veintidós
+              </h3>
+              <h3>
+                a las cuatro de la tarde en los jardines de la casa Samambaya,
+                Caracas
+              </h3>
+            </div>
+            <div className="papas-container con-margen">
+              <div className="papas">
+                <h4>Recepción: Casa Samambaya</h4>
+                <h4>Los Guayabitos, Caracas</h4>
+              </div>
+              <div className="papas">
+                <h4>Cinco y treinta de la tarde</h4>
+                <h4>Traje Formal</h4>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      {!loading && invitado != null ? (
-        <div className="section2">
-          <div className="rsvp-container">
-            <div className="rsvp">
-              <div className="frame">
-                <div className="shape-outer-small bevel">
-                  <div class="shape-inner-small bevel"></div>
+        {!loading && invitado != null ? (
+          <div className="section2">
+            <div className="rsvp-container">
+              <div className="rsvp">
+                <div className="absolute-container">
+                  <div className="frame second">
+                    <div className="frame-container">
+                      <div className="shape-outer-small bevel">
+                        <div class="shape-inner-small bevel"></div>
+                      </div>
+                      <div className="rectangle-small">
+                        <div className="rectangle-inside"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div className="rectangle-small"></div>
-              </div>
-              <div className="invitado-contenedor">
-                <div className="invitado">
+                <div className="invitado-contenedor">
+                <div className="invitado full">
                   <h1>{invitado.titulo}</h1>
                 </div>
                 <div className="invitar">
                   {invitado.invites >1 ?
-                  <h3>¡Esperamos poder celebrar este día con ustedes!</h3>
-                  :    <h3>¡Esperamos poder celebrar este día contigo!</h3>}
+                  <h3>¡Estamos muy felices de poder compartir con ustedes este día tan especial!</h3>
+                  :    <h3>¡Estamos muy felices de poder compartir contigo este día tan especial!</h3>}
                 </div>
                 {invitado.invites > 1 && (
                   <>
@@ -171,16 +192,25 @@ const App = (props) => {
                   </button>
                 </div>
               </div>
+              </div>
+            </div>
+            <div className="rsvp-container">
+              <div className="rsvp white">
+              <div className="invitado">
+                  <h1>Información</h1>
+                  <h2>Dirección</h2>
+                  <a onClick={()=>{openInNewTab('https://goo.gl/maps/BfBQkVU7jTZxM97P6')}}>Casa Samambaya</a>
+                  <h2>Lista de Bodas</h2>
+                  <a onClick={()=>{openInNewTab('https://www.amazon.com/hz/wishlist/ls/1F46F1E0ZMVSC?ref_=wl_share')}}>Amazon</a>
+                  <h3>Biutt, Santa Fe. Caracas, Venezuela</h3>
+                </div>
+                
+              
+              </div>
             </div>
           </div>
-          <div className="mitad">
-            <button className="button2">
-              <h2>LISTA DE BODAS</h2>
-            </button>
-          </div>
-        </div>
-      ) : null}
-    </div>
+        ) : null}
+      </div>
     </>
   );
 };
