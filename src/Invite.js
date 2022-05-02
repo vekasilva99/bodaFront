@@ -109,11 +109,11 @@ const App = (props) => {
             <div className="papas-container">
               <div className="papas">
                 <h3>Juan Carlos Antillano Monagas</h3>
-                <h3>Ysabel Vetencourt De Antillano</h3>
+                <h3>Ysabel Vetencourt de Antillano</h3>
               </div>
               <div className="papas">
                 <h3>Vicente Rosa Muñoz</h3>
-                <h3>Andreina Uzcátegui De Rosa</h3>
+                <h3>Andreina Uzcátegui de Rosa</h3>
               </div>
             </div>
             <div className="invitar">
