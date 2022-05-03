@@ -37,8 +37,10 @@ const App = (props) => {
     if (valor) {
       if (invitado.invites > 1) {
         aux = asistencia;
+      }else{
+        aux=1
       }
-      aux = 1;
+    
     } else {
       aux = 0;
     }
