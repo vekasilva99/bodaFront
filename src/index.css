@@ -330,6 +330,21 @@ button[disabled]{
 
 }
 
+
+.invitado h4{
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  margin: 0;
+  font-size: 1vw;
+  margin-bottom: 2vh;
+  opacity: 1;
+  transition: all 1s;
+  color: rgba(60, 60, 60, 1);
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+
+}
+
 .invitado h3{
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
@@ -708,6 +723,10 @@ select{
    
   }
 
+  .invitado h4{
+    font-size: 2vw;
+   
+  }
   .invitado h3{
     font-size: 5vw;
    

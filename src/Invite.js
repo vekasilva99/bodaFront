@@ -202,9 +202,12 @@ const App = (props) => {
                   <h1>Información</h1>
                   <h2>Dirección</h2>
                   <a onClick={()=>{openInNewTab('https://goo.gl/maps/BfBQkVU7jTZxM97P6')}}>Casa Samambaya</a>
+                  <h4>(Link)</h4>
                   <h2>Lista de Bodas</h2>
                   <a onClick={()=>{openInNewTab('https://www.amazon.com/hz/wishlist/ls/1F46F1E0ZMVSC?ref_=wl_share')}}>Amazon</a>
-                  <h3>Biutt, Santa Fe. Caracas, Venezuela</h3>
+                  <h4>(Link)</h4>
+                  <a onClick={()=>{openInNewTab('https://goo.gl/maps/XwGuNLUBqqkTkXtG8')}}>Biutt, Santa Fe. Caracas, Venezuela</a>
+                  <h4>(Link)</h4>
                 </div>
                 
               
